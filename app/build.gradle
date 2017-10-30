@@ -8,8 +8,8 @@ android {
         applicationId "gllc.tech.blocksteps"
         minSdkVersion 23
         targetSdkVersion 25
-        versionCode 25
-        versionName "1.064"
+        versionCode 26
+        versionName "1.065"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

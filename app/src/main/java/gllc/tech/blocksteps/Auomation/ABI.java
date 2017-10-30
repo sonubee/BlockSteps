@@ -1,0 +1,90 @@
+package gllc.tech.blocksteps.Auomation;
+
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.Future;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.tx.Contract;
+import org.web3j.tx.TransactionManager;
+
+/**
+ * Auto generated code.<br>
+ * <strong>Do not modify!</strong><br>
+ * Please use the <a href="https://docs.web3j.io/command_line.html">web3j command line tools</a>, or {@link org.web3j.codegen.SolidityFunctionWrapperGenerator} to update.
+ *
+ * <p>Generated with web3j version 2.3.0.
+ */
+public final class ABI extends Contract {
+    private static final String BINARY = "6060604052341561000f57600080fd5b6107588061001e6000396000f3006060604052600436106100775763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416637a725806811461007c5780638c88af22146100df5780638fd2f1cd146101305780639b2ea4bd14610181578063bf40fac1146101df578063dc5e5c0f1461024c575b600080fd5b341561008757600080fd5b6100cd60046024813581810190830135806020601f820181900481020160405190810160405281815292919060208401838380828437509496506102a295505050505050565b60405190815260200160405180910390f35b34156100ea57600080fd5b6100cd60046024813581810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284375094965061031195505050505050565b341561013b57600080fd5b6100cd60046024813581810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284375094965061034495505050505050565b341561018c57600080fd5b6101dd60046024813581810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284375094965050509235600160a060020a0316925061038c915050565b005b34156101ea57600080fd5b61023060046024813581810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284375094965061042d95505050505050565b604051600160a060020a03909116815260200160405180910390f35b341561025757600080fd5b6101dd600480359060446024803590810190830135806020601f820181900481020160405190810160405281815292919060208401838380828437509496506104b095505050505050565b60006001826040518082805190602001908083835b602083106102d65780518252601f1990920191602091820191016102b7565b6001836020036101000a0380198251168184511680821785525050505050509050019150509081526020016040518091039020549050919050565b6000600282604051808280519060200190808383602083106102d65780518252601f1990920191602091820191016102b7565b600160a060020a03331660009081526020819052604080822090839051808280519060200190808383602083106102d65780518252601f1990920191602091820191016102b7565b8060036000846040518082805190602001908083835b602083106103c15780518252601f1990920191602091820191016103a2565b6001836020036101000a038019825116818451161790925250505091909101925060409150505190819003902081526020810191909152604001600020805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555050565b600060036000836040518082805190602001908083835b602083106104635780518252601f199092019160209182019101610444565b6001836020036101000a03801982511681845116179092525050509190910192506040915050519081900390208152602081019190915260400160002054600160a060020a031692915050565b600160a060020a03331660009081526020819052604080822082918591908590518082805190602001908083835b602083106104fd5780518252601f1990920191602091820191016104de565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390205410801561053e5750600084115b156107265760016002846040518082805190602001908083835b602083106105775780518252601f199092019160209182019101610558565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405190819003902080549091019055600160a060020a03331660009081526020819052604090819020908490518082805190602001908083835b602083106105fc5780518252601f1990920191602091820191016105dd565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390205491508184039050806001846040518082805190602001908083835b6020831061066a5780518252601f19909201916020918201910161064b565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405190819003902080549091019055600160a060020a0333166000908152602081905260409081902085918590518082805190602001908083835b602083106106f05780518252601f1990920191602091820191016106d1565b6001836020036101000a038019825116818451168082178552505050505050905001915050908152602001604051908190039020555b505050505600a165627a7a723058202b19fbf5285a16cd6a06dcf848048274da10d0afe0de58506e46f8564d29dad30029";
+
+    private ABI(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    private ABI(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+
+    public Future<Uint256> everyoneStepsDate(Utf8String date) {
+        Function function = new Function("everyoneStepsDate", 
+                Arrays.<Type>asList(date), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeCallSingleValueReturnAsync(function);
+    }
+
+    public Future<Uint256> countAllPeopleDate(Utf8String date) {
+        Function function = new Function("countAllPeopleDate", 
+                Arrays.<Type>asList(date), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeCallSingleValueReturnAsync(function);
+    }
+
+    public Future<Uint256> recallMySteps(Utf8String date) {
+        Function function = new Function("recallMySteps", 
+                Arrays.<Type>asList(date), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+        return executeCallSingleValueReturnAsync(function);
+    }
+
+    public Future<TransactionReceipt> setAddress(Utf8String a, Address b) {
+        Function function = new Function("setAddress", Arrays.<Type>asList(a, b), Collections.<TypeReference<?>>emptyList());
+        return executeTransactionAsync(function);
+    }
+
+    public Future<Address> getAddress(Utf8String a) {
+        Function function = new Function("getAddress", 
+                Arrays.<Type>asList(a), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
+        return executeCallSingleValueReturnAsync(function);
+    }
+
+    public Future<TransactionReceipt> saveMySteps(Uint256 numSteps, Utf8String date) {
+        Function function = new Function("saveMySteps", Arrays.<Type>asList(numSteps, date), Collections.<TypeReference<?>>emptyList());
+        return executeTransactionAsync(function);
+    }
+
+    public static Future<ABI> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialWeiValue) {
+        return deployAsync(ABI.class, web3j, credentials, gasPrice, gasLimit, BINARY, "", initialWeiValue);
+    }
+
+    public static Future<ABI> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit, BigInteger initialWeiValue) {
+        return deployAsync(ABI.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, "", initialWeiValue);
+    }
+
+    public static ABI load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new ABI(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    public static ABI load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new ABI(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+}

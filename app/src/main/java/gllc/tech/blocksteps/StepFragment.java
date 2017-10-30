@@ -53,6 +53,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import gllc.tech.blocksteps.Auomation.ABI;
 import gllc.tech.blocksteps.Auomation.DateFormatter;
 import gllc.tech.blocksteps.Auomation.SetAlarm;
 import gllc.tech.blocksteps.Auomation._Users_Admin_Desktop_Steps_sol_Steps;
@@ -89,37 +90,37 @@ public class StepFragment extends Fragment {
 
     Credentials credentials = null;
     Web3j web3;
-    public static _Users_Admin_Desktop_Steps_sol_Steps contract;
+    //public static _Users_Admin_Desktop_Steps_sol_Steps contract;
+    public static ABI contract;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.step_fragment, container, false);
-
         setup();
         view = assignUI(view);
         checkForWallet();
+
 
         try {
             unlockMainAccount();
         } catch (ExecutionException e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error1: " + e.getMessage());
             Crashlytics.logException(e);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error2: " + e.getMessage());
             Crashlytics.logException(e);
         }
-
-
         return view;
     }
 
 
     private void checkForWallet() {
         //editor.putString("walletFileName", "none").commit();
+
         if (sharedPref.getString("walletFileName","none").equals("none")){
             startingDialog.dismiss();
             creatingAccount = new ProgressDialog(getContext());
@@ -128,9 +129,10 @@ public class StepFragment extends Fragment {
 
             firstLoad=true;
             new CreateWallet().execute();
-        }
 
+        }
         else{ new LoadCredentials().execute();}
+
 
 
         try {
@@ -142,7 +144,7 @@ public class StepFragment extends Fragment {
                 }
             });
         } catch (Exception e) {
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error3: " + e.getMessage());
         }
 
 /*
@@ -245,6 +247,7 @@ public class StepFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
             Log.i("--All", "Creating Wallet");
             DatabaseReference myRef = database.getReference(sharedPref.getString("uniqueId","NA"));
             myRef.child("First Load").push().setValue("Creating Wallet");
@@ -256,23 +259,23 @@ public class StepFragment extends Fragment {
                         sharedPref.getString("uniqueId","NA"),
                         new File(getActivity().getFilesDir(), "/"),false);
             } catch (CipherException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error4: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             } catch (IOException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error5: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             } catch (InvalidAlgorithmParameterException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error6: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             } catch (NoSuchAlgorithmException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error7: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             } catch (NoSuchProviderException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error8: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             }
@@ -317,11 +320,11 @@ public class StepFragment extends Fragment {
                 myRef.child("Address").setValue(credentials.getAddress());
 
             } catch (IOException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error9: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             } catch (CipherException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error10: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             }
@@ -345,11 +348,11 @@ public class StepFragment extends Fragment {
                     unlockedMain = unlockMainAccount();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
-                    Log.i("--All", "Error: " + e.getMessage());
+                    Log.i("--All", "Error11: " + e.getMessage());
                     Crashlytics.logException(e);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    Log.i("--All", "Error: " + e.getMessage());
+                    Log.i("--All", "Error12: " + e.getMessage());
                     Crashlytics.logException(e);
                 }
 
@@ -411,7 +414,7 @@ public class StepFragment extends Fragment {
 
             try {response = mySession.send(request);}
             catch (JSONRPC2SessionException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error13: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             }
@@ -443,7 +446,7 @@ public class StepFragment extends Fragment {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error14: " + e.getMessage());
                 Crashlytics.logException(e);
             }
         }
@@ -454,12 +457,13 @@ public class StepFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             Log.i("--All", "Creating Contract");
-            contract = _Users_Admin_Desktop_Steps_sol_Steps.load(MyApplication.contractAddress, web3, credentials, GAS_PRICE, GAS_LIMIT);
+            //contract = _Users_Admin_Desktop_Steps_sol_Steps.load(MyApplication.contractAddress, web3, credentials, GAS_PRICE, GAS_LIMIT);
+            contract = ABI.load(MyApplication.contractAddress, web3, credentials, GAS_PRICE, GAS_LIMIT);
 
             try {
                 Log.i("--All", "Contract Valid: " + contract.isValid());
             } catch (IOException e) {
-                Log.i("--All", "Error: " + e.getMessage());
+                Log.i("--All", "Error15: " + e.getMessage());
                 Crashlytics.logException(e);
                 e.printStackTrace();
             }
@@ -487,19 +491,19 @@ public class StepFragment extends Fragment {
             loadEveryoneSteps(day, formattedDate);
         } catch (ExecutionException e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error16: " + e.getMessage());
             Crashlytics.logException(e);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error17: " + e.getMessage());
             Crashlytics.logException(e);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error18: " + e.getMessage());
             Crashlytics.logException(e);
         }catch (Exception e) {
             e.printStackTrace();
-            Log.i("--All", "Error: " + e.getMessage());
+            Log.i("--All", "Error19: " + e.getMessage());
             Crashlytics.logException(e);
         }
 
@@ -542,15 +546,12 @@ public class StepFragment extends Fragment {
     }
 
     public void loadDatesAndSteps(int day, String formattedDate) throws ExecutionException, InterruptedException {
-
         Future<Uint256> mySteps = contract.recallMySteps(new Utf8String(formattedDate));
 
         if (day == 0) {
-            //todayStepsBig.setText(i+"");
             day0Steps.setText(mySteps.get().getValue()+"");
             day0Title.setText(DateFormatter.GetMonthYear(day));
         }
-
         if (day == -1) {
             day1Steps.setText(mySteps.get().getValue()+"");
             day1Title.setText(DateFormatter.GetMonthYear(day));

@@ -21,8 +21,10 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
+import gllc.tech.blocksteps.Auomation.ABI;
 import gllc.tech.blocksteps.Auomation.DateFormatter;
 import gllc.tech.blocksteps.Auomation.SetAlarm;
 import gllc.tech.blocksteps.Auomation._Users_Admin_Desktop_Steps_sol_Steps;
@@ -46,7 +48,8 @@ public class SendStepsService extends IntentService {
 
     Credentials credentials = null;
     Web3j web3;
-    public static _Users_Admin_Desktop_Steps_sol_Steps contract;
+    //public static _Users_Admin_Desktop_Steps_sol_Steps contract;
+    public static ABI contract;
 
     // Must create a default constructor
     public SendStepsService() {
@@ -158,7 +161,9 @@ public class SendStepsService extends IntentService {
             Log.i("--All", "Credentials Address from SendStepsService: " + credentials.getAddress());
 
             Log.i("--All", "Creating Contract from SendStepsService");
-            contract = _Users_Admin_Desktop_Steps_sol_Steps.load(MyApplication.contractAddress, web3, credentials, GAS_PRICE, GAS_LIMIT);
+
+            BigInteger GAS_LIMIT = BigInteger.valueOf(210000);
+            contract = ABI.load(MyApplication.contractAddress, web3, credentials, GAS_PRICE, GAS_LIMIT);
 
         } catch (IOException e) {
             Log.i("--All", "Error: " + e.getMessage());
